@@ -102,7 +102,7 @@ services:
       traefik.enable: "true"
       traefik.http.services.cvat.loadbalancer.server.port: "8080"
       traefik.http.routers.cvat.rule:
-        Host(`${CVAT_HOST:-localhost}`) &&
+        Host('${CVAT_HOST:-localhost}') &&
         (PathPrefix(`/api/`) || PathPrefix(`/static/`) || PathPrefix(`/admin`)
           || PathPrefix(`/django-rq`))
       traefik.http.routers.cvat.entrypoints: http
@@ -250,10 +250,12 @@ services:
     restart: always
     depends_on:
       - cvat_server
+    environment:
+      - CVAT_HOST=
     labels:
       traefik.enable: "true"
       traefik.http.services.cvat-ui.loadbalancer.server.port: "80"
-      traefik.http.routers.cvat-ui.rule: Host(`${CVAT_HOST:-localhost}`)
+      traefik.http.routers.cvat-ui.rule: Host('${CVAT_HOST:-localhost}')
       traefik.http.routers.cvat-ui.entrypoints: http
     networks:
       - cvat
