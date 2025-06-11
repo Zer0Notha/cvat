@@ -105,7 +105,7 @@ services:
         Host(`${CVAT_HOST:-localhost}`) &&
         (PathPrefix(`/api/`) || PathPrefix(`/static/`) || PathPrefix(`/admin`)
           || PathPrefix(`/django-rq`))
-      traefik.http.routers.cvat.entrypoints: web
+      traefik.http.routers.cvat.entrypoints: http
     volumes:
       - cvat_data:/home/django/data
       - cvat_keys:/home/django/keys
@@ -254,7 +254,7 @@ services:
       traefik.enable: "true"
       traefik.http.services.cvat-ui.loadbalancer.server.port: "80"
       traefik.http.routers.cvat-ui.rule: Host(`${CVAT_HOST:-localhost}`)
-      traefik.http.routers.cvat-ui.entrypoints: web
+      traefik.http.routers.cvat-ui.entrypoints: http
     networks:
       - cvat
 
